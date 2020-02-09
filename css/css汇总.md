@@ -66,6 +66,47 @@
    - em：   会继承父级元素的字体大小，代表倍数；
    - rem：  基于根元素 <html> 的，也代表倍数。
 
-4. ##### animation（动画）、transition过渡）、transform（变形）、translate（移动）**
+4. ##### animation（动画）、transition过渡）、transform（变形）、translate（移动）
 
+5. ##### CSS加载会阻塞DOM🌲的渲染
 
+   - ###### 浏览器解析：1.解析DOM，2.解析CSS结构，3.渲染
+
+6. ##### CSS加载会阻塞js运行
+
+7. ##### CSS加载优化方法
+
+   1. ###### 使用CDN（从就近具有缓存的节点加载）
+
+   2. ###### 缓存
+
+   3. ###### 减少http请求，合并多个css文件
+
+8. ##### word-break、word-warp、white-space
+
+   - ###### white-space:
+
+     | 是否发挥作用 | 换行符 | 空格 | 自动换行 | </br> \nbsp |
+     | ------------ | ------ | ---- | -------- | ----------- |
+     | normal       | ×      | ×    | √        | √           |
+     | nowrap       | ×      | ×    | ×        | √           |
+     | pre          | √      | √    | ×        | √           |
+     | pre-wrap     | √      | √    | √        | √           |
+     | pre-line     | √      | ×    | √        | √           |
+
+   - ###### word-break:
+
+     | 属性      | 作用                         |
+     | --------- | ---------------------------- |
+     | normal    |                              |
+     | break-all | 只有空格可以触发自动换行     |
+     | keep-all  | 所有单词碰到边界一律拆分换行 |
+
+     
+
+   - ###### word-warp（overflow-warp）：
+
+     | 属性       | 作用         |
+     | ---------- | ------------ |
+     | normal     |              |
+     | break-word | 溢出部分换行 |
