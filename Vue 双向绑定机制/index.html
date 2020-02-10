@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>{{person.name}}  -- {{person.age}}</h2>
+        <h3>{{person.fav}}</h3>
+
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+
+        <h3>{{msg}}</h3>
+
+        <div v-text='msg'></div>
+        <div v-html='htmlStr'></div>
+        <input type="text" v-model='msg'>
+        <button v-on:click='myClick'>click</button>
+        <button @click='myClick2'>click@</button>
+    </div>
+
+    <script src="./Observer.js"></script>
+    <script src="./myVue.js"></script>
+
+    <script>
+        let vm = new MVue({
+            el:'#app',
+            data:{
+                person:{
+                    name:'taotao',
+                    age:18,
+                    fav:'aaa'
+                },
+                msg:'实现MVVM双向绑定a',
+                htmlStr:'<h1>htmlStr</h1>'
+            },
+            methods:{
+                myClick(){
+                    console.log('click')
+                },
+                myClick2(){
+                    console.log('click@')
+                    this.$data.msg = 'xuexi'
+                }
+            }
+        })
+    </script>
+</body>
+</html>
