@@ -73,7 +73,7 @@
       
       
    2. ##### 通过has 和 in 关键字 进行拦截
-   
+
       ```javascript
       let obj = {
           name:"taotao",
@@ -93,11 +93,11 @@
       console.log('name' in curProxy)         //true
       console.log('name2' in curProxy)        //false
       ```
-   
+
       
-   
+
    3. ##### 通过ownKeys 和 for in 遍历过滤
-   
+
       ```javascript
       let obj = {
           name:"taotao",
@@ -114,11 +114,11 @@
           console.log(key)            //name, age
       }
       ```
-   
+
       
-   
+
    4. ##### 通过apply（）对函数调用进行拦截
-   
+
       ```javascript
       function test(){
           console.log('hello world')
@@ -135,11 +135,11 @@
       curTest.apply()         //proxy apply,  hello world
       curTest.call()          //proxy apply,  hello world
       ```
-   
+
       
-   
+
    5. ##### 通过construct对构造函数实例化进行拦截
-   
+
       ```javascript
       function test(){
           console.log('hello world')
@@ -158,7 +158,7 @@
       ```
 
    6. ##### proxy中的fun
-   
+
       ```json
       {
         get:'',
@@ -177,5 +177,49 @@
         construct:'执行实例化时的代理'
       }
       ```
-   
+
+   7. ##### 通过Proxy实现观察者模式
+
+      ```javascript
+      //初始化观察者队列
+      const arr = new Set();
       
+      //将监听函数加入队列
+      const obe = fun => {
+        arr.add(fun);
+      }
+      
+      //初始化Proxy对象，设置拦截操作
+      const observable =  obj => new Proxy(obj, {set});
+      
+      function set(target, key, value, receiver){
+           //内部调用对应的 Reflect 方法
+           const result = Reflect.set(target, key, value, receiver);
+           //额外执行观察者队列
+           arr.forEach( item => item() );
+           return Reflect.set(target, key, value, receiver);
+      }
+      
+      const target = {
+         name:"小明",
+         age:15
+      }
+      
+      
+      const per = observable(target);
+      
+      function print(){
+         console.log( per.name);
+      }
+      
+      
+      obe(print);
+      
+      per.name = "小红"
+       //结果   小红,15
+      ```
+
+4. #### 详情链接
+
+   [Proxy和Reflect](https://www.jianshu.com/p/9e07f182859b)
+
