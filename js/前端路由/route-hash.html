@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端hash路由</title>
+</head>
+
+<body>
+    <ul>
+        <li><a href="#recommend">推荐</a></li>
+        <li><a href="#song">歌单</a></li>
+        <li><a href="#rate">榜单</a></li>
+    </ul>
+
+    <h2>当前页面：</h2>
+    <div id="currentPage"></div>
+</body>
+
+<script>
+
+function Router(){
+  this.curUrl = ''
+  this.routers = {}
+  this.refresh = function(){
+    this.curUrl = location.hash.slice(1) || '/'
+    this.routers[this.curUrl]();
+  }
+  
+  this.init = function (){
+    window.addEventListener('hashchange',this.refresh.bind(this))
+    window.addEventListener('load',this.refresh.bind(this))
+  }
+  
+  this.route = function(path,callback){
+      console.log('path',path)
+    this.routers[path] = callback || function(){}
+  }
+}
+
+//指定容器渲染组件
+var domDiv = document.querySelector('#currentPage')
+//创建实例并初始化
+var r = new Router();
+r.init()
+//创建映射关系
+r.route('recommend',function(){
+  domDiv.textContent = '推荐'
+})
+r.route('song',function(){
+  domDiv.textContent = '歌单'
+})
+r.route('rate',function(){
+  domDiv.textContent = '榜单'
+  console.log('dd')
+})
+
+console.log('dddd',r.routers)
+</script>
+
+</html>
